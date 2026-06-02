@@ -906,19 +906,20 @@ links.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
 }));
 
 /* ---------- Animaciones GSAP ---------- */
-function showAll(){ document.documentElement.classList.remove("anim"); }
+function showAll(){ document.documentElement.classList.remove("anim"); document.querySelectorAll(".reveal,.hero-figure,.hero-chip").forEach(el=>{ el.style.opacity=""; el.style.visibility=""; el.style.transform=""; }); }
 if (window.gsap && window.ScrollTrigger){
   gsap.registerPlugin(ScrollTrigger);
   const hasMorph = !!window.MorphSVGPlugin;
   if (hasMorph) gsap.registerPlugin(MorphSVGPlugin);
   const planeD = "M2.01 21L23 12 2.01 3 2 10l15 2-15 2z";
 
+  let revealed = false;
   const mm = gsap.matchMedia();
   mm.add({ reduce:"(prefers-reduced-motion: reduce)", fine:"(prefers-reduced-motion: no-preference)" }, (ctx) => {
     if (ctx.conditions.reduce){ showAll(); return; }
 
     // Entrada orquestada del hero
-    gsap.timeline({ defaults:{ ease:"power3.out" } })
+    gsap.timeline({ defaults:{ ease:"power3.out" }, onComplete:()=>{revealed=true;} })
       .to(".hero-figure", { autoAlpha:1, y:0, scale:1, duration:1.1 }, 0.1)
       .to(".hero-copy .reveal", { autoAlpha:1, y:0, duration:0.9, stagger:0.12 }, 0.25)
       .to(".hero-chip", { autoAlpha:1, y:0, scale:1, duration:0.6 }, "-=0.35");
@@ -949,6 +950,7 @@ if (window.gsap && window.ScrollTrigger){
     }
   });
   window.addEventListener("load", () => ScrollTrigger.refresh());
+  setTimeout(()=>{ if(!revealed) showAll(); }, 2600);
 
   /* Morph del ícono de WhatsApp → avión "enviar" al pasar el mouse (botones secundarios) */
   if (hasMorph) {
