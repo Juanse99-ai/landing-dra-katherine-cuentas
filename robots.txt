@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://landing-katherine-cuentas.vercel.app/sitemap.xml
