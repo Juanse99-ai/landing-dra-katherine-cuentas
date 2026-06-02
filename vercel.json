@@ -1,0 +1,16 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "landing-katherine-cuentas.vercel.app" }],
+      "destination": "https://drakatherinecuentas.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.drakatherinecuentas.com" }],
+      "destination": "https://drakatherinecuentas.com/:path*",
+      "permanent": true
+    }
+  ]
+}
